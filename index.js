@@ -23,11 +23,12 @@ function compile(filename, getURL, options) {
   return compiler(options);
 }
 
-module.exports.toFolder = compileToFolder;
-function compileToFolder(filename, output, options) {
+module.exports.toDisc = compileToDisc;
+function compileToDisc(filename, output, options) {
   options = options || {};
   var files = [];
   var sources = [];
+  var written = [];
   output = path.resolve(output);
   var assetsRelative = (options.assets || './assets').replace(/\/$/, '');
   var assets = path.resolve(path.dirname(output), assetsRelative);
@@ -42,11 +43,14 @@ function compileToFolder(filename, output, options) {
       }
       files.push(name);
       sources.push(file);
+      written.push(path.join(assets, name));
       return copyFile(file, path.join(assets, name)).then(function () {
         return assetsRelative + '/' + name;
       });
     }, options);
   }).then(function (res) {
+    res.assetsSources = sources;
+    res.assets = written;
     return writeFile(output, res.css).then(function () {
       return res;
     });

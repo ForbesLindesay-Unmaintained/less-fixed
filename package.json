@@ -3,11 +3,15 @@
   "version": "0.0.1",
   "less-version": "1.6.3",
   "description": "The less compiler with a few features you absolutely need",
+  "bin": {
+    "less-fixed": "./bin/less.js"
+  },
   "keywords": [],
   "dependencies": {
     "promise": "~4.0.0",
     "resolve": "~0.6.1",
-    "slugg": "~0.1.2"
+    "slugg": "~0.1.2",
+    "minimist": "0.0.7"
   },
   "optionalDependencies": {
     "mime": "1.2.x",
@@ -23,10 +27,11 @@
     "tar-pack": "~2.0.0",
     "npm-fetch": "0.0.8",
     "jquery": "~2.1.0",
-    "twbs": "0.0.4"
+    "twbs": "0.0.4",
+    "linify": "~1.0.1"
   },
   "scripts": {
-    "prepublish": "node build",
+    "prepublish": "linify transform bin && node build",
     "test": "node test"
   },
   "repository": {
