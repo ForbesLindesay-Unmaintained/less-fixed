@@ -25,9 +25,14 @@ function compile(filename, getURL, options) {
 
 module.exports.toFolder = compileToFolder;
 function compileToFolder(filename, output, options) {
+  options = options || {};
   var files = [];
   var sources = [];
-  return mkdirp(path.join(path.dirname(output), 'assets')).then(function () {
+  output = path.resolve(output);
+  var assetsRelative = (options.assets || './assets').replace(/\/$/, '');
+  var assets = path.resolve(path.dirname(output), assetsRelative);
+  if (options.assets) delete options.assets;
+  return mkdirp(assets).then(function () {
     return compile(filename, function (file) {
       var basename = slugg(path.basename(file, path.extname(file))) + path.extname(file);
       var name = basename;
@@ -35,11 +40,10 @@ function compileToFolder(filename, output, options) {
       while (files.indexOf(name) !== -1 && sources[files.indexOf(name)] !== file) {
         name = (i++) + '-' + basename;
       }
-      console.dir(name);
       files.push(name);
       sources.push(file);
-      return copyFile(file, path.join(path.dirname(output), 'assets', name)).then(function () {
-        return './assets/' + name;
+      return copyFile(file, path.join(assets, name)).then(function () {
+        return assetsRelative + '/' + name;
       });
     }, options);
   }).then(function (res) {

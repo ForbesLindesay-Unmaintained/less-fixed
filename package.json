@@ -26,6 +26,7 @@
     "twbs": "0.0.4"
   },
   "scripts": {
+    "prepublish": "node build",
     "test": "node test"
   },
   "repository": {
