@@ -1,6 +1,6 @@
 {
   "name": "less-fixed",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "less-version": "1.6.3",
   "description": "The less compiler with a few features you absolutely need",
   "bin": {
