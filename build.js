@@ -40,7 +40,9 @@ step('copy optionalDependencies and dependencies', function () {
   pkg.optionalDependencies = pkg.optionalDependencies || {};
   if (less.optionalDependencies && typeof less.optionalDependencies === 'object') {
     Object.keys(less.optionalDependencies).forEach(function (key) {
-      pkg.optionalDependencies[key] = less.optionalDependencies[key];
+      if (!key in pkg.dependencies) {
+        pkg.optionalDependencies[key] = less.optionalDependencies[key];
+      }
     });
   }
   fs.writeFileSync(__dirname + '/package.json', JSON.stringify(pkg, null, '  '));
