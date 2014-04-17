@@ -1,7 +1,7 @@
 {
   "name": "less-fixed",
   "version": "0.0.4",
-  "less-version": "1.6.3",
+  "less-version": "1.7.0",
   "description": "The less compiler with a few features you absolutely need",
   "bin": {
     "less-fixed": "./bin/less.js"
@@ -12,7 +12,8 @@
     "resolve": "~0.6.1",
     "slugg": "~0.1.2",
     "minimist": "0.0.7",
-    "clean-css": "~2.0.0"
+    "clean-css": "~2.0.0",
+    "es6-map": "0.0.0"
   },
   "optionalDependencies": {
     "mime": "1.2.x",

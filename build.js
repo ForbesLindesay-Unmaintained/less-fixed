@@ -26,6 +26,15 @@ step('fixup to add "@import (npm)" support', function () {
   assert(/npm/.test(src), 'Src does refer to npm after we mutate it');
   fs.writeFileSync(__dirname + '/thirdparty/less/lib/less/parser.js', src);
 });
+//numPrecision: 8
+
+step('fixup to add url(...) support', function () {
+  var src = fs.readFileSync(__dirname + '/thirdparty/less/lib/less/parser.js', 'utf8');
+  assert(!/getURL/.test(src), 'Src doesn\'t refer to getURL before we mutate it');
+  src = src.replace(/( *)numPrecision\: 8/, '$1numPrecision: 8,\n$1getURL: options.getURL');
+  assert(/getURL/.test(src), 'Src does refer to getURL after we mutate it');
+  fs.writeFileSync(__dirname + '/thirdparty/less/lib/less/parser.js', src);
+});
 
 step('copy optionalDependencies and dependencies', function () {
   var pkg = JSON.parse(fs.readFileSync(__dirname + '/package.json', 'utf8'));
